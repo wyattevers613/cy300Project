@@ -9,9 +9,13 @@ class Projectile:
         self.bulletFilePath = "assets/bulletPlaceholder.png"
         self.bulletImage = pygame.image.load(self.bulletFilePath)
         self.r = 12
+        self.rect = None
 
     def render(self):
-        self.ds.blit(self.bulletImage, self.pos)
+        self.rect = self.bulletImage.get_rect()
+        self.rect.center = self.pos
+        # pygame.draw.rect(self.ds, (255, 255, 255), self.rect)  #shows hitbox
+        self.ds.blit(self.bulletImage, self.rect)
 
     def getInitialPos(self, h, cannonSize, cannonPos):
         x = (cannonSize * math.cos(math.radians(h))) + cannonPos[0]

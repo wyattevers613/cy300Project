@@ -24,8 +24,9 @@ class hudButton(menuButton.MenuButton):
 def createHUD(gameData, gs, screenSize):
     elements = []
     #dayCount = menuButton.MenuButton(gs, f"Day {gameData[0]}", (740, 35), screenSize, "dayCount")
-    elements.append(hudButton(gs, f"Day {gameData[0]}", (740, 35), screenSize, "dayCount"))
+    elements.append(hudButton(gs, f"Day: {gameData[0]}", (740, 35), screenSize, "dayCount"))
     elements.append(hudButton(gs, f"Health: {gameData[2]}", (100, 550), screenSize, "healthBar"))
+    elements.append(hudButton(gs, f"Score: {gameData[1]}", (680, 550), screenSize, "scoreCount"))
 
     return elements
 
@@ -34,7 +35,11 @@ def createHUD(gameData, gs, screenSize):
 def drawHUD(gs, scr, elements, gameData):
     for el in elements:
         if el.triggerLoop == "dayCount":
-            el.text = f"Day {gameData[0]}"
+            el.text = f"Day: {gameData[0]}"
+        if el.triggerLoop == "healthBar":
+            el.text = f"Health: {gameData[2]}"
+        if el.triggerLoop == "scoreCount":
+            el.text = f"Score: {gameData[1]}"
         el.render()
         returnMess = el.checkInteraction(pygame.mouse.get_pos(), pygame.mouse.get_pressed())
         if not(returnMess == None):

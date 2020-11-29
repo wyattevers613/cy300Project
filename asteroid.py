@@ -11,7 +11,7 @@ class Asteroid:
         self.image = pygame.image.load(random.choice(self.filePaths))
         self.image = pygame.transform.scale(self.image, (self.r, self.r))
         # eventuall throw in random rotation speed
-
+        self.rect = None
     def generatePos(self):
         x = random.randint(0 + self.r, self.screenSize[0] - self.r)
         y = random.randint(self.r - 200, 0 - self.r)
@@ -28,5 +28,8 @@ class Asteroid:
 
 
     def render(self):
-        self.ds.blit(self.image, self.pos)
+        self.rect = self.image.get_rect()
+        self.rect.center = self.pos
+        # pygame.draw.rect(self.ds, (255, 0, 0), self.rect)  #shows hitbox
+        self.ds.blit(self.image, self.rect)
     

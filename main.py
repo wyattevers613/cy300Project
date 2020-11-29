@@ -8,7 +8,7 @@ clock = pygame.time.Clock()
 FPS = 60
 frameTag = 0
 diffScale = 5
-dayLength = 5 # sets uniform day length seconds * fps
+dayLength = 20 # sets uniform day length seconds * fps
 dayFrames = dayLength * 60
 
 
@@ -41,9 +41,12 @@ def drawGame(frameTag):
     cannon.render()
     for i in collisions:
         i.render(frameTag)
+    for i in groundImpacts:
+        i.render(frameTag)
     pygame.display.update()
     screen.blit(gameSurf, (0,0))
 
+"""
 # Collision Detection
 def collisionDetection(score):
     for aInd, asteroid in enumerate(asteroids):
@@ -56,6 +59,24 @@ def collisionDetection(score):
                 del cannon.projectiles[pInd]
                 score += 1
     return score # current system only increases score by one, even if multiple collisions, rework later
+"""
+
+def collisionDetection():
+    for pInd, projectile in enumerate(cannon.projectiles):
+        for aInd, asteroid in enumerate(asteroids):
+            if projectile.rect.colliderect(asteroid.rect):
+                newCol = collision.Collision(gameSurf, asteroid.pos, frameTag)
+                collisions.append(newCol)
+                del asteroids[aInd]
+                del cannon.projectiles[pInd]
+                gameData[1] += 100
+    for aInd, asteroid in enumerate(asteroids):
+        if asteroid.pos[1] > size[1]:
+            newGroundCol = collision.GroundImpact(gameSurf, asteroid.pos, frameTag)
+            groundImpacts.append(newGroundCol)
+            del asteroids[aInd]
+            gameData[2] -= 1
+                
 
 
 
@@ -81,9 +102,9 @@ while True:
             elif menuLoop == "newGame":
                 activeLoop = game
                 day = 0
-                money = 0
+                score = 0
                 health = 3
-                gameData = [day, money, health]
+                gameData = [day, score, health]
         
 
 
@@ -97,6 +118,7 @@ while True:
             # Create Objects and Object containers
             cannon = cannon.Cannon(size, gameSurf)
             collisions = []
+            groundImpacts = []      #    track seperately to allow seperate animations
             asteroids = []
             startDayFrame = frameTag
 
@@ -112,6 +134,7 @@ while True:
             dropInterval = dayFrames // astNum
 
         hud.drawHUD(gameSurf, screen, hudElements, gameData)
+        collisionDetection()
 
         # Day incrementor + Actions on Day change
         if (frameTag - startDayFrame) % dayFrames == 0 and not frameTag == startDayFrame:
@@ -134,14 +157,17 @@ while True:
             startDayFrame = frameTag
             betweenDays = False
 
-        score = collisionDetection(score)
         cannon.update(keys, frameTag)
+        for i in asteroids:
+            i.update()
 
-        
+        """
         for i, j in enumerate(asteroids):
             if j.pos[1] >= cannon.pos[1]:
                 del asteroids[i]
             j.update()
+        """
+
         drawGame(frameTag)
 
 

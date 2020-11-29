@@ -12,6 +12,7 @@ class Collision:
         self.curFrame = 0 # incremented after frameLength
         # Load individual frames
         self.frames, self.frameLength = self.loadFrames()
+        self.rect = None
 
     def loadFrames(self):
         # load frames, done by length of filepath list to future proof for more frames if needed
@@ -25,16 +26,20 @@ class Collision:
 
     def render(self, frameTag):
         if self.active == True:
+            self.rect = self.frames[self.curFrame].get_rect()
+            self.rect.center = self.pos
             #self.ds.blit(self.frames[self.curFrame ], self.pos)
             frameNum = 1
             if frameTag == self.startExplosion + self.frameLength and not frameNum == len(self.frames):
-                self.ds.blit(self.frames[self.curFrame], self.pos)
+                self.ds.blit(self.frames[self.curFrame], self.rect)
                 self.curFrame += 1
                 self.startExplosion = frameTag
                 frameNum += 1
             elif frameTag == self.endExplosion - 1:
                 self.active = False
             elif self.active:
-                self.ds.blit(self.frames[self.curFrame], self.pos)
+                self.ds.blit(self.frames[self.curFrame], self.rect)
 
 
+class GroundImpact(Collision):
+    pass
