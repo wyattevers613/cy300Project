@@ -8,7 +8,7 @@ clock = pygame.time.Clock()
 FPS = 60
 frameTag = 0
 diffScale = 5
-dayLength = 20 # sets uniform day length seconds * fps
+dayLength = 3 # sets uniform day length seconds * fps 20default
 dayFrames = dayLength * 60
 
 
@@ -105,7 +105,7 @@ while True:
                 score = 0
                 health = 3
                 gameData = [day, score, health]
-        
+                menuSetup = False
 
 
     if activeLoop == game:
@@ -161,21 +161,32 @@ while True:
         for i in asteroids:
             i.update()
 
-        """
-        for i, j in enumerate(asteroids):
-            if j.pos[1] >= cannon.pos[1]:
-                del asteroids[i]
-            j.update()
-        """
+        if gameData[2] < 1:
+            activeLoop = "gameOver"
+            gameSetup = False
+            gameOverSetup = False
+            #Save to ldrboard
+            
 
         drawGame(frameTag)
 
+    if activeLoop == "gameOver":
+        if gameOverSetup == False:
+            gameOverSurf, buttons, elements = menuFunctions.gameOverSetup(size, gameData)
+            gameOverSetup = True
 
-        # console log score
-        if not score == oldScore:
-            print(score)
-            oldScore = score
-            
+        jumpToLoop = menuFunctions.gameOverDraw(gameOverSurf, screen, buttons, elements)
+
+        if not jumpToLoop == "Pass":
+            if jumpToLoop == "mainMenu":
+                gameSetup = False
+                gameData = (0, 0, 3)
+                activeLoop = menu
+                menuLoop = mainMenu
+            elif jumpToLoop == "exit":
+                pygame.quit()
+                sys.exit()
+        
     # Quick quit for testing
     if keys[pygame.K_q]:
         pygame.quit()

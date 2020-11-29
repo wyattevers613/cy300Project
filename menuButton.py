@@ -32,11 +32,13 @@ class MenuButton:
     def checkInteraction(self, mousePos, mouseClicks):
         #print("check")
         if self.rect.collidepoint(mousePos):
+            #print("collide")
             self.curCol = self.selectCol
         else:
             self.curCol = self.backCol
 
         if self.rect.collidepoint(mousePos) and mouseClicks[0] == True:
+            print("trigger")
             return self.triggerLoop
         else:
             return None
