@@ -6,13 +6,15 @@ This project is a simple game inspired by retro arcade games such as Missile Def
 
 ### Instructions
 #### Installation and Running the Game
-To run the game, download and extract the .zip file. Open the folder, and run the **main.py** file through a python interpreter. The user must have the **pygame** module installed. This can be done easily through the pip install process.
+To run the game, download and extract the .zip file. Open the folder, and run the **AstroDefense 3000.exe** file. The user must have the **pygame** module installed. This can be done easily through the pip install process.
 #### Game Instructions / Controls
-After running the **main.py** file, the main menu will launch. To start a new game, click **New Game**. The cannon is rotated left and right using the **left and right arrow keys**, and the cannon is fired using the **spacebar**. The goal is to shoot the asteroids before they collide with the planet. If three collide, the player loses and the **Game Over** screen appears. From here, the player can either exit or return to the main menu.
+After running the **AstroDefense 3000.exe** file, the main menu will launch. To start a new game, click **New Game**. The cannon is rotated left and right using the **left and right arrow keys**, and the cannon is fired using the **spacebar**. The goal is to shoot the asteroids before they collide with the planet. If three collide, the player loses and the **Game Over** screen appears. From here, the player can either exit or return to the main menu.
 #### Leaderboard Feature
 After playing at least one round, the leaderboard menu will have records to display. The leaderboard is accesses by clicking the **Leaderboard** button on the main menu. Here, the player can view their top 6 games, with the score, days survived, and date displayed.
 
 ### File Walkthrough
+#### AstroDefense 3000.except
+Launches the game by running the **main.py** file.
 #### Assets Folder
 Contains all assets needed for game to run.
 #### .gitignore
@@ -30,7 +32,7 @@ Contains the custom functions needed for file IO and leaderboard functionality
 #### hud.py
 Contains the custom functions needed to create the Heads Up Display in the game window. Also contains hudButton class which is subclass of the MenuButton class.
 #### main.py
-Contains the main game loop. This file is run for the program to launch.
+Contains the main game loop.
 #### menuButton.py
 Contains the custom MenuButton class which forms the foundation of all interactive elements in menus.
 #### menuFunctions.py
