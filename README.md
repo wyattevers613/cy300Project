@@ -13,9 +13,9 @@ After running the **main.py** file, the main menu will launch. To start a new ga
 After playing at least one round, the leaderboard menu will have records to display. The leaderboard is accesses by clicking the **Leaderboard** button on the main menu. Here, the player can view their top 6 games, with the score, days survived, and date displayed.
 
 ### File Walkthrough
-#### Assets Folder:
+#### Assets Folder
 Contains all assets needed for game to run.
-#### .gitignore:
+#### .gitignore
 Used to prevent git from committing the pygame cache and personal leaderboard
 #### README.md
 The file you are currently reading, formatted to look fancy in GitHub
@@ -50,4 +50,4 @@ Hand in hand with the implementation of progression would have been a save and l
 
 
 ### Citations and Code Ownership
-To create this project, I mainly relied on the Python and Pygame references. Initially, I used a variety of Pygame tutorials to learn how to get started with the basic functionality, but no tutorial that I used had any relation with my game concept. All of the code in this project is my own, except for 2 partial lines I needed when integrating the Python datetime library into the leaderboard system. Those 2 partial lines contain URL citations in comments and are located in **gameFileIO.py**
+To create this project, I mainly relied on the Python and Pygame references. Initially, I used a variety of Pygame tutorials to learn how to get started with the basic functionality, but no tutorial that I used had any relation with my game concept. All of the code in this project is my own except for 2 partial lines I needed when integrating the Python datetime library into the leaderboard system. Those 2 partial lines contain URL citations in comments and are located in **gameFileIO.py**
