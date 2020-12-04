@@ -38,7 +38,6 @@ class MenuButton:
             self.curCol = self.backCol
 
         if self.rect.collidepoint(mousePos) and mouseClicks[0] == True:
-            print("trigger")
             return self.triggerLoop
         else:
             return None

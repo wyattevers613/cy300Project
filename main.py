@@ -8,7 +8,7 @@ clock = pygame.time.Clock()
 FPS = 60
 frameTag = 0
 diffScale = 5
-dayLength = 3 # sets uniform day length seconds * fps 20default
+dayLength = 20 # sets uniform day length seconds * fps 20default
 dayFrames = dayLength * 60
 
 
@@ -30,12 +30,13 @@ activeLoop = menu    # starting on game loop until menu system operational
 
 menuSetup = False
 gameSetup = False
+ldrBoardSetup = False
 
 
 # Draw Game Function
 def drawGame(frameTag):
-    #surf.blit(bg, (0,0))
-    gameSurf.fill((0, 0, 0))
+    gameSurf.blit(background, (0,0))
+    #gameSurf.fill((0, 0, 0))
     for i in asteroids:
         i.render()
     cannon.render()
@@ -96,9 +97,10 @@ while True:
             menuSurf, buttons, menuSetup = menuFunctions.mainMenuSetup(size)
             mainMenu = "mainMenu"
             menuLoop = mainMenu
+            menuBack = pygame.image.load("assets/menuBackground.png")
         else:
             if menuLoop == mainMenu:
-                menuLoop = menuFunctions.drawMenu(menuSurf, screen, buttons, menuLoop)
+                menuLoop = menuFunctions.drawMenu(menuSurf, screen, buttons, menuLoop, menuBack)
             elif menuLoop == "newGame":
                 activeLoop = game
                 day = 0
@@ -106,6 +108,21 @@ while True:
                 health = 3
                 gameData = [day, score, health]
                 menuSetup = False
+            elif menuLoop == "ldrBrd":
+                if ldrBoardSetup == False:
+                    menuSetup = False
+                    ldrBoardSetup = True
+                    ldrData = gameFileIO.leaderboardToList()
+                    ldrSurf, ldrEl, heading = gameFileIO.setupLeaderboard(ldrData, size)
+                else:
+                    trigLoop = gameFileIO.drawLeaderboard(ldrSurf, screen, ldrEl, heading)
+                    if trigLoop:
+                        menuLoop = mainMenu
+                
+                
+                
+                
+                
 
 
     if activeLoop == game:
@@ -121,6 +138,9 @@ while True:
             groundImpacts = []      #    track seperately to allow seperate animations
             asteroids = []
             startDayFrame = frameTag
+
+            # load assets
+            background = pygame.image.load("assets/gameBackground.png")
 
             score = 0 # right now score is reset, will change when load game feature implemented
             oldScore = 0    
@@ -165,7 +185,7 @@ while True:
             activeLoop = "gameOver"
             gameSetup = False
             gameOverSetup = False
-            #Save to ldrboard
+            gameFileIO.updateLeaderboard(gameData)
             
 
         drawGame(frameTag)

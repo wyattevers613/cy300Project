@@ -1,8 +1,8 @@
 import pygame, menuButton
 
 # take menu surface, screen, and current button configuration and push to screen
-def drawMenu(mS, scr, btns, menuLoop):
-    mS.fill((0, 0, 0))
+def drawMenu(mS, scr, btns, menuLoop, mB):
+    mS.blit(mB, (0,0))
     for b in btns:
         b.render()
         returnMess = b.checkInteraction(pygame.mouse.get_pos(), pygame.mouse.get_pressed())
@@ -20,14 +20,14 @@ def drawMenu(mS, scr, btns, menuLoop):
 def mainMenuSetup(size):
     menuSurf = pygame.Surface(size)
     buttons = []
-    newGameButton = menuButton.MenuButton(menuSurf, "New Game", (150, 300), size, "newGame")
+    newGameButton = menuButton.MenuButton(menuSurf, "New Game", (800 - 150, 380), size, "newGame")
     buttons.append(newGameButton)
 
-    loadGameButton = menuButton.MenuButton(menuSurf, "Load Game", (150, 400), size, "loadGame")
+    loadGameButton = menuButton.MenuButton(menuSurf, "Load Game", (800 - 150, 440), size, "loadGame")
     buttons.append(loadGameButton)
     menuSetup = True
 
-    ldrBrdButton = menuButton.MenuButton(menuSurf, "Leaderboard", (150, 500), size, "ldrBrd")
+    ldrBrdButton = menuButton.MenuButton(menuSurf, "Leaderboard", (800 - 150, 500), size, "ldrBrd")
     buttons.append(ldrBrdButton)
 
     return menuSurf, buttons, menuSetup
