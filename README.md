@@ -38,7 +38,7 @@ Contains custom functions to augment usage of MenuButton class.
 #### projectile.py
 Contains custom Projectile class which handles all projectiles shot by player.
 #### sampleLeaderboard.txt
-This is an example of what **leaderboard.txt** will look like after the user plays a few games. The **leaderboard.txt** file is not meant to be viewed as a text file, it simply contains raw data that is formatted by the **Leaderboard** loop n the menu.
+This is an example of what **leaderboard.txt** will look like after the user plays a few games. The **leaderboard.txt** file is not meant to be viewed as a text file, it simply contains raw data that is formatted by the **Leaderboard** loop in the menu.
 
 ### Possible Future Improvements
 #### Sound
