@@ -20,15 +20,21 @@ def drawMenu(mS, scr, btns, menuLoop, mB):
 def mainMenuSetup(size):
     menuSurf = pygame.Surface(size)
     buttons = []
-    newGameButton = menuButton.MenuButton(menuSurf, "New Game", (800 - 150, 380), size, "newGame")
+    newGameButton = menuButton.MenuButton(menuSurf, "New Game", (800 - 150, 420), size, "newGame")
     buttons.append(newGameButton)
 
+    # Game not complex enough to warrant effort needed for save game / load game
+    # Originally intended for progression but scaled project back due to time constraints
+    """
     loadGameButton = menuButton.MenuButton(menuSurf, "Load Game", (800 - 150, 440), size, "loadGame")
     buttons.append(loadGameButton)
-    menuSetup = True
+    
+    """
 
     ldrBrdButton = menuButton.MenuButton(menuSurf, "Leaderboard", (800 - 150, 500), size, "ldrBrd")
     buttons.append(ldrBrdButton)
+
+    menuSetup = True
 
     return menuSurf, buttons, menuSetup
 
@@ -39,13 +45,13 @@ def gameOverSetup(size, gameData):
     elements = []
 
 
-    exitButton = menuButton.MenuButton(gameOverSurf, "Exit", (size[0] / 2, 500), size, "exit")
+    exitButton = menuButton.MenuButton(gameOverSurf, "Exit", (600, 500), size, "exit")
     buttons.append(exitButton)
 
-    """
+    
     backMenuButton = menuButton.MenuButton(gameOverSurf, "Main Menu", (200, 500), size, "mainMenu")
     buttons.append(backMenuButton)
-    """
+    
 
     displayText = pygame.font.Font(pygame.font.match_font("yugothicyugothicuisemiboldyugothicuibold"), 25)
     displayTextSurface = displayText.render(f"You survived {gameData[0]} days and achieved a score of {gameData[1]}", True, (255, 255, 255))

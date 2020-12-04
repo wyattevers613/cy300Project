@@ -1,5 +1,5 @@
 # import packages
-import pygame, sys, cannon, asteroid, collision, math, menuButton, gameFileIO, shop, menuFunctions, hud
+import pygame, sys, cannon, asteroid, collision, math, menuButton, gameFileIO, menuFunctions, hud
 from pygame.locals import *
 
 # Global Variables
@@ -39,7 +39,7 @@ def drawGame(frameTag):
     #gameSurf.fill((0, 0, 0))
     for i in asteroids:
         i.render()
-    cannon.render()
+    cann.render()
     for i in collisions:
         i.render(frameTag)
     for i in groundImpacts:
@@ -47,29 +47,15 @@ def drawGame(frameTag):
     pygame.display.update()
     screen.blit(gameSurf, (0,0))
 
-"""
-# Collision Detection
-def collisionDetection(score):
-    for aInd, asteroid in enumerate(asteroids):
-        for pInd, projectile in enumerate(cannon.projectiles):
-            distanceBetween = abs(math.sqrt(((asteroid.pos[0] - projectile.pos[0]) ** 2) + (asteroid.pos[0] - projectile.pos[0]) ** 2))
-            if distanceBetween <= (projectile.r / 2 + asteroid.r / 2):
-                newCol = collision.Collision(gameSurf, asteroid.pos, frameTag)
-                collisions.append(newCol)
-                del asteroids[aInd]
-                del cannon.projectiles[pInd]
-                score += 1
-    return score # current system only increases score by one, even if multiple collisions, rework later
-"""
 
 def collisionDetection():
-    for pInd, projectile in enumerate(cannon.projectiles):
+    for pInd, projectile in enumerate(cann.projectiles):
         for aInd, asteroid in enumerate(asteroids):
             if projectile.rect.colliderect(asteroid.rect):
                 newCol = collision.Collision(gameSurf, asteroid.pos, frameTag)
                 collisions.append(newCol)
                 del asteroids[aInd]
-                del cannon.projectiles[pInd]
+                del cann.projectiles[pInd]
                 gameData[1] += 100
     for aInd, asteroid in enumerate(asteroids):
         if asteroid.pos[1] > size[1]:
@@ -117,6 +103,7 @@ while True:
                 else:
                     trigLoop = gameFileIO.drawLeaderboard(ldrSurf, screen, ldrEl, heading)
                     if trigLoop:
+                        ldrBoardSetup = False
                         menuLoop = mainMenu
                 
                 
@@ -132,8 +119,10 @@ while True:
             gameSurf = pygame.Surface(size)
             hudElements = hud.createHUD(gameData, gameSurf, size)
             
+
             # Create Objects and Object containers
-            cannon = cannon.Cannon(size, gameSurf)
+            
+            cann = cannon.Cannon(size, gameSurf)
             collisions = []
             groundImpacts = []      #    track seperately to allow seperate animations
             asteroids = []
@@ -177,7 +166,7 @@ while True:
             startDayFrame = frameTag
             betweenDays = False
 
-        cannon.update(keys, frameTag)
+        cann.update(keys, frameTag)
         for i in asteroids:
             i.update()
 
@@ -194,6 +183,7 @@ while True:
         if gameOverSetup == False:
             gameOverSurf, buttons, elements = menuFunctions.gameOverSetup(size, gameData)
             gameOverSetup = True
+
 
         jumpToLoop = menuFunctions.gameOverDraw(gameOverSurf, screen, buttons, elements)
 

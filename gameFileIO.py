@@ -24,7 +24,7 @@ def setupLeaderboard(leaderboardDataList, size):
     ds = pygame.Surface(size)
     elements = []
 
-    limitDisplay = 10
+    limitDisplay = 6
     elCreated = 0
 
     yStart = 200
@@ -45,8 +45,9 @@ def setupLeaderboard(leaderboardDataList, size):
         text = f"{entry[0]} Score Achieved  |  {entry[1]} Days Survived  |  Achieved on {formattedDate}"
 
         displayedEntry = menuButton.MenuButton(ds, text, (400, yStart), size, None)
-        displayedEntry.size = 15  # shrink text
+        displayedEntry.size = 20  # shrink text
         elements.append(displayedEntry)
+        elCreated += 1
         yStart += 50
 
     headingText = pygame.font.Font(pygame.font.match_font("yugothicyugothicuisemiboldyugothicuibold"), 100)
